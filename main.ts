@@ -87,8 +87,9 @@ import { fromModelToProject, fromModelTotask, fromModelToUser } from "./utils.ts
 
 const MONGO_URL = Deno.env.get("MONGO_URL");
 if(!MONGO_URL){
-  console.log("Debes crear la variable de entorno MONGO_MONGO_URL");
-  Deno.exit(1);
+  //console.log("Debes crear la variable de entorno MONGO_MONGO_URL");
+  throw new Error("Debes crear la variable de entorno MONGO_MONGO_URL");
+  //Deno.exit(1);
 }
 
 const client = new MongoClient(MONGO_URL);
