@@ -87,8 +87,10 @@ import { fromModelToProject, fromModelTotask, fromModelToUser } from "./utils.ts
 
 const MONGO_URL = Deno.env.get("MONGO_URL");
 if(!MONGO_URL){
-  //console.log("Debes crear la variable de entorno MONGO_MONGO_URL");
-  throw new Error("Debes crear la variable de entorno MONGO_MONGO_URL");
+  //Lanzo una excepecion para que pueda ejecutarse el programa en deno deploy, si pongo el Deno.exit(1) me salta un error y no se ejecuta
+  throw new Error("Debes crear la variable de entorno MONGO_URL");
+
+  //console.log("Debes crear la variable de entorno MONGO_URL");
   //Deno.exit(1);
 }
 
