@@ -4,7 +4,6 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
-    "mongodb": "npm:mongodb@^6.11.0",
-    "importMap": "./import_map.json"
+    "mongodb": "npm:mongodb@^6.11.0"
   }
 }
