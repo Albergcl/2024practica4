@@ -89,9 +89,6 @@ const MONGO_URL = Deno.env.get("MONGO_URL");
 if(!MONGO_URL){
   //Lanzo una excepecion para que pueda ejecutarse el programa en deno deploy, si pongo el Deno.exit(1) me salta un error y no se ejecuta
   throw new Error("Debes crear la variable de entorno MONGO_URL");
-
-  //console.log("Debes crear la variable de entorno MONGO_URL");
-  //Deno.exit(1);
 }
 
 const client = new MongoClient(MONGO_URL);
@@ -239,13 +236,11 @@ const handler = async (req: Request): Promise<Response> => {
       const idProject = await ProjectsCollection.find({ _id: task.destination_project_id });
       if(!idProject) return new Response("Project not found", { status: 404 });
 
-      //esto podria ser -> const updatedTask = await TasksCollection.updateOne({ _id: task.task_id }, { $set: { project_id: task.destination_project_id } });
       const { modifiedCount } = await TasksCollection.updateOne(
         { _id: new ObjectId(task.task_id as string) },
         { $set: { project_id: task.destination_project_id } }
       );
 
-      //Creo que es innecesario si se hace de la otra manera, ademas ya copruebo si la tarea y el proyecto existen
       if(modifiedCount === 0) return new Response("Task not moved", { status: 400 });
 
       return new Response(JSON.stringify({
